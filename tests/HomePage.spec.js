@@ -53,6 +53,11 @@ test('Go to Contacte-me', async ({ page }) =>  {
 
 test('Login Page', async ({ page }) =>  {
   await page.locator('text=entrar').nth(0).click();
+  await page.locator('#phoneOrEmail').fill('877484869');
+  await page.locator('#password').fill('Sixsix123');
+  await page.locator('div div form button').click();
+  await page.waitForLoadState('networkidle')
+  expect(await page.getByText('Minhas Contas')).toBeVisible();
   await page.pause();
 });
 
