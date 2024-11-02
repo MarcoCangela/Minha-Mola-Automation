@@ -41,7 +41,7 @@ test('Go to Perguntas Frequentes', async ({ page }) =>  {
   await page.waitForTimeout(5000);
 });
 
-test.only('Go to Contacte-me', async ({ page }) =>  {
+test('Go to Contacte-me', async ({ page }) =>  {
   await page.locator('div nav ul li svg').first().click();
  // await page.waitForSelector("ul > li [id='contacte-me']", { state: 'visible' });
   await page.getByRole('button', { name: 'Contacte-me' }).click();
