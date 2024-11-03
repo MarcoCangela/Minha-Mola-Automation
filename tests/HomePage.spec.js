@@ -70,9 +70,50 @@ test('Go to Register Page', async ({ page }) =>  {
   await page.locator('div nav ul li svg').first().click();
   // await page.waitForSelector("ul > li [id='contacte-me']", { state: 'visible' });
    await page.locator('.signup-button').click();
+   await page.waitForLoadState('networkidle');
    expect(await page.title()).toBe('registar-se | minhamola');
- 
+   // @ts-ignore
+   await page.locator('#phoneNumber').fill(process.env.NEWUSER);
+   // @ts-ignore
+   await page.locator('#email').fill(process.env.NEWEMAIL);
+   // @ts-ignore
+   await page.locator('#password').fill(process.env.NEWPASSWORD);
+   await page.locator('#show-password-button').check();
+   await page.locator('#show-password-button').uncheck();
+   await page.locator('#show-password-button').check();
    // Adding content to register to page 
+   // @ts-ignore
+   await page.waitForTimeout(5000);
+});
+
+test('Go to Register Page and then back to Login and Perform a Login', async ({ page }) =>  {
+  await page.locator('div nav ul li svg').first().click();
+  // await page.waitForSelector("ul > li [id='contacte-me']", { state: 'visible' });
+   await page.locator('.signup-button').click();
+   await page.waitForLoadState('networkidle');
+   expect(await page.title()).toBe('registar-se | minhamola');
+   // @ts-ignore
+   await page.locator('#phoneNumber').fill(process.env.NEWUSER);
+   // @ts-ignore
+   await page.locator('#email').fill(process.env.NEWEMAIL);
+   // @ts-ignore
+   await page.locator('#password').fill(process.env.NEWPASSWORD);
+   await page.locator('#show-password-button').check();
+   await page.locator('#show-password-button').uncheck();
+   await page.locator('#show-password-button').check();
+   await page.getByRole('button', { name: 'entrar' }).click();
+   await page.waitForLoadState('networkidle');
+   // Adding content to register to page 
+    // @ts-ignore
+  await page.locator('#phoneOrEmail').fill(process.env.USERNAME);
+  // @ts-ignore
+  await page.locator('#password').fill(process.env.PASSWORD);
+  await page.locator('div div form button').click();
+  await page.waitForLoadState('networkidle');
+  // await page.getByText('Adicionar nova Conta').click();
+  // await page.locator('#account-name').fill('New Account');
+  // await page.getByRole("input", { name:"account-initial-balance"}).fill('1000');
+  await page.pause();
    // @ts-ignore
    await page.waitForTimeout(5000);
 });
