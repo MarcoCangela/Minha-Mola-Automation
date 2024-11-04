@@ -44,7 +44,6 @@ test('Go to Perguntas Frequentes', async ({ page }) =>  {
 
 test('Go to Contacte-me', async ({ page }) =>  {
   await page.locator('div nav ul li svg').first().click();
- // await page.waitForSelector("ul > li [id='contacte-me']", { state: 'visible' });
   await page.getByRole('button', { name: 'Contacte-me' }).click();
   expect(await page.title()).toBe('contacte-me | minhamola');
 
@@ -54,7 +53,7 @@ test('Go to Contacte-me', async ({ page }) =>  {
   await page.waitForTimeout(5000);
 });
 
-test('Login Page', async ({ page }) =>  {
+test('Login with Mobile Number', async ({ page }) =>  {
   await page.locator('text=entrar').nth(0).click();
   // @ts-ignore
   await page.locator('#phoneOrEmail').fill(process.env.USERNAME);
@@ -66,9 +65,21 @@ test('Login Page', async ({ page }) =>  {
   await page.waitForTimeout(5000);
 });
 
+test('Login with Email', async ({ page }) =>  {
+  await page.locator('text=entrar').nth(0).click();
+  await page.locator('#email').click();
+    // @ts-ignore
+  await page.locator('.email-input').fill(process.env.EMAIL);
+  // @ts-ignore
+  await page.locator('#password').fill(process.env.PASSWORD);
+  await page.locator('div div form button').click();
+  await page.waitForLoadState('networkidle')
+  expect(await page.getByText('Minhas Contas')).toBeVisible();
+  await page.waitForTimeout(5000);
+});
+
 test('Go to Register Page', async ({ page }) =>  {
   await page.locator('div nav ul li svg').first().click();
-  // await page.waitForSelector("ul > li [id='contacte-me']", { state: 'visible' });
    await page.locator('.signup-button').click();
    await page.waitForLoadState('networkidle');
    expect(await page.title()).toBe('registar-se | minhamola');
@@ -113,7 +124,6 @@ test('Go to Register Page and then back to Login and Perform a Login', async ({ 
   // await page.getByText('Adicionar nova Conta').click();
   // await page.locator('#account-name').fill('New Account');
   // await page.getByRole("input", { name:"account-initial-balance"}).fill('1000');
-  await page.pause();
    // @ts-ignore
    await page.waitForTimeout(5000);
 });
