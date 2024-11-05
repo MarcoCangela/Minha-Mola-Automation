@@ -2,10 +2,17 @@
 const { test, expect } = require('@playwright/test');
 
 
+const url = process.env.URL;
+const password = process.env.PASSWORD;
+const username = process.env.USERNAME;
+const email = process.env.EMAIL;
+const newuser = process.env.NEWUSER;
+const newemail = process.env.NEWEMAIL;
+const newpass = process.env.NEWPASSWORD;
 
 test.beforeEach(async ({page}) => {
   // @ts-ignore
-  await page.goto(process.env.URL);
+  await page.goto(url);
   expect(await page.title()).toBe('minhamola | inicio');
 });
 
@@ -56,9 +63,9 @@ test('Go to Contacte-me', async ({ page }) =>  {
 test('Login with Mobile Number', async ({ page }) =>  {
   await page.locator('text=entrar').nth(0).click();
   // @ts-ignore
-  await page.locator('#phoneOrEmail').fill(process.env.USERNAME);
+  await page.locator('#phoneOrEmail').fill(username);
   // @ts-ignore
-  await page.locator('#password').fill(process.env.PASSWORD);
+  await page.locator('#password').fill(password);
   await page.locator('div div form button').click();
   await page.waitForLoadState('networkidle')
   expect(await page.getByText('Minhas Contas')).toBeVisible();
@@ -69,9 +76,9 @@ test('Login with Email', async ({ page }) =>  {
   await page.locator('text=entrar').nth(0).click();
   await page.locator('#email').click();
     // @ts-ignore
-  await page.locator('.email-input').fill(process.env.EMAIL);
+  await page.locator('.email-input').fill(email);
   // @ts-ignore
-  await page.locator('#password').fill(process.env.PASSWORD);
+  await page.locator('#password').fill(password);
   await page.locator('div div form button').click();
   await page.waitForLoadState('networkidle')
   expect(await page.getByText('Minhas Contas')).toBeVisible();
@@ -84,11 +91,11 @@ test('Go to Register Page', async ({ page }) =>  {
    await page.waitForLoadState('networkidle');
    expect(await page.title()).toBe('registar-se | minhamola');
    // @ts-ignore
-   await page.locator('#phoneNumber').fill(process.env.NEWUSER);
+   await page.locator('#phoneNumber').fill(newuser);
    // @ts-ignore
-   await page.locator('#email').fill(process.env.NEWEMAIL);
+   await page.locator('#email').fill(newemail);
    // @ts-ignore
-   await page.locator('#password').fill(process.env.NEWPASSWORD);
+   await page.locator('#password').fill(newpass);
    await page.locator('#show-password-button').check();
    await page.locator('#show-password-button').uncheck();
    await page.locator('#show-password-button').check();
@@ -104,11 +111,11 @@ test('Go to Register Page and then back to Login and Perform a Login', async ({ 
    await page.waitForLoadState('networkidle');
    expect(await page.title()).toBe('registar-se | minhamola');
    // @ts-ignore
-   await page.locator('#phoneNumber').fill(process.env.NEWUSER);
+   await page.locator('#phoneNumber').fill(newuser);
    // @ts-ignore
-   await page.locator('#email').fill(process.env.NEWEMAIL);
+   await page.locator('#email').fill(newemail);
    // @ts-ignore
-   await page.locator('#password').fill(process.env.NEWPASSWORD);
+   await page.locator('#password').fill(newpass);
    await page.locator('#show-password-button').check();
    await page.locator('#show-password-button').uncheck();
    await page.locator('#show-password-button').check();
@@ -116,9 +123,9 @@ test('Go to Register Page and then back to Login and Perform a Login', async ({ 
    await page.waitForLoadState('networkidle');
    // Adding content to register to page 
     // @ts-ignore
-  await page.locator('#phoneOrEmail').fill(process.env.USERNAME);
+  await page.locator('#phoneOrEmail').fill(username);
   // @ts-ignore
-  await page.locator('#password').fill(process.env.PASSWORD);
+  await page.locator('#password').fill(password);
   await page.locator('div div form button').click();
   await page.waitForLoadState('networkidle');
   // await page.getByText('Adicionar nova Conta').click();
