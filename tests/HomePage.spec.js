@@ -2,17 +2,17 @@
 const { test, expect } = require('@playwright/test');
 
 
-const url = process.env.URL;
+const url =  process.env.URL;
 const password = process.env.PASSWORD;
-const username = process.env.USERNAME;
-const email = process.env.EMAIL;
-const newuser = process.env.NEWUSER;
-const newemail = process.env.NEWEMAIL;
-const newpass = process.env.NEWPASSWORD;
+const username =  process.env.USERNAME;
+const email =  process.env.EMAIL;
+const newuser =  process.env.NEWUSER;
+const newemail =  process.env.NEWEMAIL;
+const newpass =  process.env.NEWPASSWORD;
 
 test.beforeEach(async ({page}) => {
   // @ts-ignore
-  await page.goto('https://www.minhamola.com/');
+  await page.goto(url);
   expect(await page.title()).toBe('minhamola | inicio');
 });
 
