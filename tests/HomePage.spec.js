@@ -12,7 +12,7 @@ const newpass = process.env.NEWPASSWORD;
 
 test.beforeEach(async ({page}) => {
   // @ts-ignore
-  await page.goto(url);
+  await page.goto('https://www.minhamola.com/');
   expect(await page.title()).toBe('minhamola | inicio');
 });
 
