@@ -4,9 +4,9 @@ const { test, expect } = require('@playwright/test');
 
 const url =  process.env.URL || 'https://www.minhamola.com/';
 const password = process.env.PASSWORD || 'Sixsix123';
-const username =  process.env.USERNAME || 877484869;
+const username =  process.env.USERNAME || '877484869';
 const email =  process.env.EMAIL || 'email@email.com';
-const newuser =  process.env.NEWUSER || 890179912;
+const newuser =  process.env.NEWUSER || '890179912';
 const newemail =  process.env.NEWEMAIL || 'newemail@email.com';
 const newpass =  process.env.NEWPASSWORD || 'Password123';
 
