@@ -4,9 +4,9 @@ const { test, expect } = require('@playwright/test');
 
 const url =  process.env.URL || 'https://www.minhamola.com/';
 const password = process.env.PASSWORD || 'Sixsix123';
-const username =  process.env.USERNAME || '877484869';
+const username =  process.env.USERNAME || 877484869;
 const email =  process.env.EMAIL || 'email@email.com';
-const newuser =  process.env.NEWUSER || '890179912';
+const newuser =  process.env.NEWUSER || 890179912;
 const newemail =  process.env.NEWEMAIL || 'newemail@email.com';
 const newpass =  process.env.NEWPASSWORD || 'Password123';
 
@@ -63,7 +63,7 @@ test('Go to Contacte-me', async ({ page }) =>  {
 test('Login with Mobile Number', async ({ page }) =>  {
   await page.locator('text=entrar').nth(0).click();
   // @ts-ignore
-  await page.locator('#phoneOrEmail').fill(username);
+  await page.locator('#phoneOrEmail').fill(username.toString());
   // @ts-ignore
   await page.locator('#password').fill(password);
   await page.locator('div div form button').click();
@@ -91,7 +91,7 @@ test('Go to Register Page', async ({ page }) =>  {
    await page.waitForLoadState('networkidle');
    expect(await page.title()).toBe('registar-se | minhamola');
    // @ts-ignore
-   await page.locator('#phoneNumber').fill(newuser);
+   await page.locator('#phoneNumber').fill(newuser.toString());
    // @ts-ignore
    await page.locator('#email').fill(newemail);
    // @ts-ignore
@@ -111,7 +111,7 @@ test('Go to Register Page and then back to Login and Perform a Login', async ({ 
    await page.waitForLoadState('networkidle');
    expect(await page.title()).toBe('registar-se | minhamola');
    // @ts-ignore
-   await page.locator('#phoneNumber').fill(newuser);
+   await page.locator('#phoneNumber').fill(newuser.toString());
    // @ts-ignore
    await page.locator('#email').fill(newemail);
    // @ts-ignore
@@ -123,7 +123,7 @@ test('Go to Register Page and then back to Login and Perform a Login', async ({ 
    await page.waitForLoadState('networkidle');
    // Adding content to register to page 
     // @ts-ignore
-  await page.locator('#phoneOrEmail').fill(username);
+  await page.locator('#phoneOrEmail').fill(username.toString());
   // @ts-ignore
   await page.locator('#password').fill(password);
   await page.locator('div div form button').click();
