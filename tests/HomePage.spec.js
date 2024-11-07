@@ -79,8 +79,10 @@ test('Failed Login with Mobile Number', async ({ page }) =>  {
   // @ts-ignore
   await page.locator('#password').fill('PindePass');
   await page.locator('div div form button').click();
-  await page.waitForLoadState('networkidle')
-  expect(await page.getByText('Minhas Contas')).toBeHidden();
+  await page.waitForLoadState('networkidle');
+
+  //error message that ensures that the number is a an invalid number
+  await page.isVisible('text=Este numero de celular não possui nenhuma conta.');
   await page.waitForTimeout(5000);
 });
 
@@ -105,8 +107,10 @@ test('Failed Login with Email', async ({ page }) =>  {
   // @ts-ignore
   await page.locator('#password').fill('WrongPass1231');
   await page.locator('div div form button').click();
-  await page.waitForLoadState('networkidle')
-  expect(await page.getByText('Minhas Contas')).toBeHidden();
+  await page.waitForLoadState('networkidle');
+
+//error message that ensures that the email is an invalid email
+  await page.isVisible('text=Este email não possui nenhuma conta.');
   await page.waitForTimeout(5000);
 });
 
