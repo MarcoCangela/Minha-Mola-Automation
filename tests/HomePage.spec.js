@@ -72,6 +72,18 @@ test('Login with Mobile Number', async ({ page }) =>  {
   await page.waitForTimeout(5000);
 });
 
+test('Failed Login with Mobile Number', async ({ page }) =>  {
+  await page.locator('text=entrar').nth(0).click();
+  // @ts-ignore
+  await page.locator('#phoneOrEmail').fill('821231231');
+  // @ts-ignore
+  await page.locator('#password').fill('PindePass');
+  await page.locator('div div form button').click();
+  await page.waitForLoadState('networkidle')
+  expect(await page.getByText('Minhas Contas')).toBeHidden();
+  await page.waitForTimeout(5000);
+});
+
 test('Login with Email', async ({ page }) =>  {
   await page.locator('text=entrar').nth(0).click();
   await page.locator('#email').click();
@@ -82,6 +94,19 @@ test('Login with Email', async ({ page }) =>  {
   await page.locator('div div form button').click();
   await page.waitForLoadState('networkidle')
   expect(await page.getByText('Minhas Contas')).toBeVisible();
+  await page.waitForTimeout(5000);
+});
+
+test('Failed Login with Email', async ({ page }) =>  {
+  await page.locator('text=entrar').nth(0).click();
+  await page.locator('#email').click();
+    // @ts-ignore
+  await page.locator('.email-input').fill('randomfalse@email.com');
+  // @ts-ignore
+  await page.locator('#password').fill('WrongPass1231');
+  await page.locator('div div form button').click();
+  await page.waitForLoadState('networkidle')
+  expect(await page.getByText('Minhas Contas')).toBeHidden();
   await page.waitForTimeout(5000);
 });
 
@@ -140,4 +165,3 @@ test('Getting Page properties', async ({page}) => {
     console.log("page url is "+await page.url());
     await page.waitForTimeout(5000);
   });
-
