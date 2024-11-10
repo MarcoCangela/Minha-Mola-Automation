@@ -181,5 +181,11 @@ test("Go to authors Blog and search around", async ({ page }) => {
   // await expect(newTab).toHaveURL("https://medium.com/@hokkung");
   console.log("new tab url is: " + (await newTab.url()));
   await expect(newTab).toHaveURL("https://www.miltondavid.com/");
+  await newTab.getByRole("link", { name: "Articles" }).first().click();
+  await newTab.waitForLoadState("networkidle");
+  await newTab.getByRole("link", { name: "Improving code readability" }).click();
+  await newTab.waitForLoadState("networkidle");
+  await expect(newTab.locator("#conclusion")).toHaveText("Conclusion");
+  await newTab.close();
   await page.waitForTimeout(5000);
 });
