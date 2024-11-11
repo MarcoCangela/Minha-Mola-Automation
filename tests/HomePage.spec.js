@@ -189,3 +189,22 @@ test("Go to authors Blog and search around", async ({ page }) => {
   await newTab.close();
   await page.waitForTimeout(5000);
 });
+
+test("Go to authors Blog and search around and open another article", async ({ page }) => {
+  await page.getByRole("link", { name: "miltondavid.com" }).click();
+  // await page.waitForLoadState("networkidle");
+  const newTabPromise = page.waitForEvent("popup");
+  const newTab = await newTabPromise;
+  //wait for Load
+  await newTab.waitForLoadState();
+  // await expect(newTab).toHaveURL("https://medium.com/@hokkung");
+  console.log("new tab url is: " + (await newTab.url()));
+  await expect(newTab).toHaveURL("https://www.miltondavid.com/");
+  await newTab.getByRole("link", { name: "Articles" }).first().click();
+  await newTab.waitForLoadState("networkidle");
+  await newTab.getByRole("link", { name: "Lifting up the state" }).click();
+  await newTab.waitForLoadState("networkidle");
+  await expect(newTab.locator("#conclusion")).toHaveText("Conclusion");
+  await newTab.close();
+  await page.waitForTimeout(5000);
+});
