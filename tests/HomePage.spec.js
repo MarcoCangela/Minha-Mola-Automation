@@ -178,7 +178,6 @@ test("Go to authors Blog and search around", async ({ page }) => {
   const newTab = await newTabPromise;
   //wait for Load
   await newTab.waitForLoadState();
-  // await expect(newTab).toHaveURL("https://medium.com/@hokkung");
   console.log("new tab url is: " + (await newTab.url()));
   await expect(newTab).toHaveURL("https://www.miltondavid.com/");
   await newTab.getByRole("link", { name: "Articles" }).first().click();
@@ -197,7 +196,6 @@ test("Go to authors Blog and search around and open another article", async ({ p
   const newTab = await newTabPromise;
   //wait for Load
   await newTab.waitForLoadState();
-  // await expect(newTab).toHaveURL("https://medium.com/@hokkung");
   console.log("new tab url is: " + (await newTab.url()));
   await expect(newTab).toHaveURL("https://www.miltondavid.com/");
   await newTab.getByRole("link", { name: "Articles" }).first().click();
