@@ -182,14 +182,18 @@ test("Go to authors Blog and search around", async ({ page }) => {
   await expect(newTab).toHaveURL("https://www.miltondavid.com/");
   await newTab.getByRole("link", { name: "Articles" }).first().click();
   await newTab.waitForLoadState("networkidle");
-  await newTab.getByRole("link", { name: "Improving code readability" }).click();
+  await newTab
+    .getByRole("link", { name: "Improving code readability" })
+    .click();
   await newTab.waitForLoadState("networkidle");
   await expect(newTab.locator("#conclusion")).toHaveText("Conclusion");
   await newTab.close();
   await page.waitForTimeout(5000);
 });
 
-test("Go to authors Blog and search around and open another article", async ({ page }) => {
+test("Go to authors Blog and search around and open another article", async ({
+  page,
+}) => {
   await page.getByRole("link", { name: "miltondavid.com" }).click();
   // await page.waitForLoadState("networkidle");
   const newTabPromise = page.waitForEvent("popup");
@@ -219,21 +223,40 @@ test("Implementing right click tests", async ({ page }) => {
   await expect(newTab).toHaveURL("https://www.miltondavid.com/");
   await newTab.getByRole("link", { name: "Articles" }).first().click();
   await newTab.waitForLoadState("networkidle");
-  
+
   //Opening the article on a new tab and performing it via a right click
   await newTab.getByRole("link", { name: "Lifting up the state" }).click({
     button: "right", // This  step makes the right click
   });
 
-
-   // Manually create a new tab by opening the target URL
-   const [newPage] = await Promise.all([
-    browserContext.waitForEvent('page'), // Wait for the new tab
-    page.evaluate(() => window.open('https://example.com/some-link', '_blank')), // Simulate right-click + open in new tab
+  // Manually create a new tab by opening the target URL
+  const [newPage] = await Promise.all([
+    browserContext.waitForEvent("page"), // Wait for the new tab
+    page.evaluate(() =>
+      window.open(
+        "https://www.miltondavid.com/articles/lifting-up-the-state",
+        "_blank"
+      )
+    ), // Simulate right-click + open in new tab
   ]);
 
-
-
+  await newPage.waitForLoadState("networkidle");
+  console.log("new tab url is: " + (await newPage.url()));
+  await expect(newPage).toHaveURL("https://www.miltondavid.com/articles/lifting-up-the-state");
   
-  await page.waitForTimeout(5000);
+  // At the moment there are 3 pages open in the browser, the newPage,newTab and default page
+  // We are going to switch back and forth between them and then close each page sequentially 
+
+  await page.bringToFront();
+  await page.waitForLoadState();
+  await newPage.bringToFront();
+  await newPage.waitForLoadState();
+  await newTab.bringToFront();
+  await newTab.waitForLoadState();
+
+
+  await newPage.close();
+  await page.close();
+  await newTab.close();
+
 });
